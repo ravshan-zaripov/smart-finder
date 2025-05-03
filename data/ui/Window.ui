@@ -4,5 +4,13 @@
     <template class="Window" parent="AdwApplicationWindow">
         <property name="default-height">640</property>
         <property name="default-width">840</property>
+        <property name="content">
+            <object class="AdwNavigationSplitView">
+                <property name="collapsed">false</property>
+                <property name="sidebar">
+                    <object class="Sidebar" id="_sidebar"/>
+                </property>
+            </object>
+    </property>
     </template>
 </interface>
