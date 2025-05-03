@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <requires lib="gtk" version="4.0"/>
+    <template class="Window" parent="AdwApplicationWindow">
+        <property name="default-height">640</property>
+        <property name="default-width">840</property>
+    </template>
+</interface>

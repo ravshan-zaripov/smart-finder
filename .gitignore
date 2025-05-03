@@ -1,0 +1,7 @@
+~*
+builddir/
+__pycache__/
+.venv/
+
+*.txt
+*.pyc

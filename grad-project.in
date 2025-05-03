@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+import signal
+
+_LOCAL = @local_build@ # type: ignore
+
+if _LOCAL:
+    sys.path.insert(1, '@pythondir@')
+
+import gi
+gi.require_version("Adw", "1")
+gi.require_version('Gtk', '4.0')
+
+from gi.repository import Adw, Gio # type: ignore
+
+Adw.init()
+
+LOCALE_DIR = '@localedir@'
+PKGDATA_DIR = '@pkgdatadir@'
+VERSION = '@version@'
+
+def set_resources():
+    """Sets application ressource file."""
+    resource = Gio.resource_load(
+        os.path.join(PKGDATA_DIR, '@project_name@.gresource'))
+    Gio.Resource._register(resource)
+
+def run_application():
+    """Runs GNOME application and returns its exit code."""
+    from src.application import Application
+
+    app = Application('@application_id@', VERSION)
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
+    return app.run(sys.argv)
+
+def main():
+    """Sets environment and runs GNOME application."""
+    set_resources()
+    return run_application()
+
+
+if __name__ == '__main__':
+    if _LOCAL:
+        print('Running from source tree, using local files.')
+
+    sys.exit(main())
