@@ -14,3 +14,5 @@ class Window(Adw.ApplicationWindow):
 
     def __init__(self, application):
         super().__init__(application=application, title="SmartFinder")
+
+        self._listview.setup(application)
