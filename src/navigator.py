@@ -32,30 +32,37 @@ class Navigator(GObject.GObject):
             self.history_stack.append(current_path)
             self.forward_stack.clear()
 
-        self.notify("can_go_back")
-        self.notify("can_go_forward")
-
+        self.notify("can-go-back")
+        self.notify("can-go-forward")
         return self._list_entries(current_path)
 
     @GObject.Property(type=bool, default=False, flags=GObject.ParamFlags.READABLE)
     def can_go_back(self):
         return len(self.history_stack) > 1
 
-    
     @GObject.Property(type=bool, default=False, flags=GObject.ParamFlags.READABLE)
     def can_go_forward(self):
         return len(self.forward_stack) > 0
 
     def back(self):
         if len(self.history_stack) > 1:
-            self.forward_stack.append(self.history_stack.pop())
+            path = self.history_stack.pop()
+            self.forward_stack.append(path)
+
+            self.notify("can-go-back")
+            self.notify("can-go-forward")
             return self._list_entries(self.history_stack[-1])
+        return []
 
     def forward(self):
-        if self.forward_stack:
+        if len(self.forward_stack) > 0:
             path = self.forward_stack.pop()
             self.history_stack.append(path)
+
+            self.notify("can-go-back")
+            self.notify("can-go-forward")
             return self._list_entries(path)
+        return []
 
     def _list_entries(self, path: Path):
         return [
