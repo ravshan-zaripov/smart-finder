@@ -37,11 +37,12 @@ class Navigator(GObject.GObject):
 
         return self._list_entries(current_path)
 
-    @GObject.Property(type=bool, flags=GObject.ParamFlags.READABLE)
+    @GObject.Property(type=bool, default=False, flags=GObject.ParamFlags.READABLE)
     def can_go_back(self):
         return len(self.history_stack) > 1
 
-    @GObject.Property(type=bool, flags=GObject.ParamFlags.READABLE)
+    
+    @GObject.Property(type=bool, default=False, flags=GObject.ParamFlags.READABLE)
     def can_go_forward(self):
         return len(self.forward_stack) > 0
 
