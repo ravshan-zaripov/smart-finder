@@ -4,5 +4,6 @@
         <file>style.css</file>
         <file preprocess="xml-stripblanks">ui/Window.ui</file>
         <file preprocess="xml-stripblanks">ui/Sidebar.ui</file>
+        <file preprocess="xml-stripblanks">ui/ListView.ui</file>
     </gresource>
 </gresources>
