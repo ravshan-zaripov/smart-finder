@@ -1,6 +1,7 @@
 from gi.repository import Adw, Gtk, Gdk, Gio, GLib, GObject # type: ignore
 
 from src.window import Window
+from .navigator import Navigator
 
 
 class Application(Adw.Application):
@@ -11,6 +12,11 @@ class Application(Adw.Application):
         GLib.set_application_name("SmartFinder")
         
         self._window = None
+        self._navigator = Navigator()
+
+    @GObject.Property(type=Navigator, flags=GObject.ParamFlags.READABLE)
+    def navigator(self):
+        return self._navigator
 
     def do_activate(self):
         css_provider = Gtk.CssProvider()
