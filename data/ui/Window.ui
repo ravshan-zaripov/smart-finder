@@ -7,6 +7,9 @@
         <property name="content">
             <object class="AdwNavigationSplitView">
                 <property name="collapsed">false</property>
+                <property name="content">
+                    <object class="ListView" id="_listview"/>
+                </property>
                 <property name="sidebar">
                     <object class="Sidebar" id="_sidebar"/>
                 </property>
