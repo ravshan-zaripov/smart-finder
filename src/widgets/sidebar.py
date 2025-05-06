@@ -9,7 +9,8 @@ class Sidebar(Adw.NavigationPage):
     __gtype_name__ = "Sidebar"
 
     __gsignals__ = {
-        "sidebar-folder-selected": (GObject.SignalFlags.RUN_FIRST, None, (str,))
+        "sidebar-folder-selected": (GObject.SignalFlags.RUN_FIRST, None, (str,)),
+        "search-button-clicked": (GObject.SignalFlags.RUN_FIRST, None, ()),
     }
 
     _search_button: Gtk.Button = Gtk.Template.Child()
@@ -26,6 +27,8 @@ class Sidebar(Adw.NavigationPage):
         self.add_folder("Music", "folder-music-symbolic", Path.home() / "Music")
         self.add_folder("Pictures", "folder-pictures-symbolic", Path.home() / "Pictures")
 
+        self._search_button.connect("clicked", self.on_search_button_clicked)
+
     def add_folder(self, label: str, icon: str, path: Path):
         content = Adw.ButtonContent(
             label=label,
@@ -40,3 +43,6 @@ class Sidebar(Adw.NavigationPage):
 
     def on_folder_clicked(self, button, path: Path):
         self.emit("sidebar-folder-selected", str(path))
+
+    def on_search_button_clicked(self, button):
+        self.emit("search-button-clicked")
